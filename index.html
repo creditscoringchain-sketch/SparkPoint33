@@ -10,54 +10,87 @@
             --neon-green: #00ff9d;
             --gold: #ffd700;
             --bg-dark: #0f0f1b;
-            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top right, #1a1a2e, transparent);
             color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0;
-            padding: 15px;
-            display: flex;
-            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 400px; }
+        .container { max-width: 420px; margin: 0 auto; }
 
-        .header { text-align: center; margin-bottom: 20px; }
-        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; text-shadow: 0 0 10px var(--gold); }
-        
-        .wallet-info {
-            font-size: 0.8rem; color: var(--gold); background: rgba(255, 215, 0, 0.1);
-            padding: 8px; border-radius: 12px; margin: 10px 0; border: 1px solid rgba(255, 215, 0, 0.2);
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+        }
+        .logo span { font-size: 2.5rem; filter: drop-shadow(0 0 10px var(--gold)); }
+        .wallet-addr {
+            font-size: 0.75rem; color: var(--gold); background: rgba(255, 215, 0, 0.1);
+            padding: 5px 15px; border-radius: 20px; margin-top: 10px;
+            display: inline-block; border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
-        .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .stat-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 15px; padding: 15px; text-align: center; }
-        .stat-label { font-size: 0.7rem; color: #aaa; text-transform: uppercase; margin-bottom: 5px; }
-        .stat-value { font-size: 1.2rem; font-weight: bold; color: #fff; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 20px; padding: 15px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .stat-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .stat-value { font-size: 1.4rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .matrix-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
-        .lvl-title { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--neon-green); margin: 15px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
-        
-        /* Сетка кружков — ТЕПЕРЬ ВЫРАВНЕНО */
-        .dots-grid { display: grid; gap: 10px; justify-content: center; margin-bottom: 10px; }
-        #row1 { grid-template-columns: repeat(2, 25px); }
-        #row2 { grid-template-columns: repeat(6, 25px); }
-        #row3 { grid-template-columns: repeat(7, 25px); } /* 14 мест в 2 ряда автоматически */
+        .matrix-box {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 24px; padding: 20px; margin-bottom: 20px;
+        }
+        .lvl-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin: 20px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px;
+        }
+        .lvl-header:first-child { margin-top: 0; }
+        .lvl-name { font-size: 0.85rem; font-weight: bold; color: var(--neon-green); }
+        .dots { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .dot {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: #222; border: 1px solid #333; transition: 0.4s;
+        }
+        .dot.active {
+            background: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); border: none;
+        }
 
-        .dot { width: 25px; height: 25px; border-radius: 50%; background: #222; border: 1px solid #444; transition: 0.3s; }
-        .dot.active { background: var(--neon-green); box-shadow: 0 0 12px var(--neon-green); border: none; }
+        .box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 15px; }
+        .btn {
+            width: 100%; padding: 16px; border-radius: 14px; border: none;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-size: 0.9rem; text-transform: uppercase;
+        }
+        .btn-green { background: var(--neon-green); color: #000; box-shadow: 0 4px 15px rgba(0, 255, 157, 0.3); }
+        .btn-green:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 255, 157, 0.4); }
+        
+        input {
+            width: 100%; padding: 14px; background: #000; border: 1px solid #333;
+            border-radius: 12px; color: #fff; margin: 10px 0; box-sizing: border-box;
+            word-break: break-all;
+        }
 
-        .box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 15px; padding: 15px; margin-top: 15px; }
-        .btn { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
-        .btn-main { background: var(--neon-green); color: #000; }
-        
-        input { width: 100%; padding: 12px; background: #000; border: 1px solid #444; border-radius: 10px; color: #fff; margin-top: 5px; box-sizing: border-box; }
-        
-        .admin-panel { border: 1px solid var(--gold); }
+        .inviter-info { text-align: center; font-size: 0.8rem; color: #888; margin-bottom: 15px; background: var(--card-bg); padding: 10px; border-radius: 10px; border: 1px solid var(--border);}
         .hidden { display: none; }
     </style>
 </head>
@@ -65,165 +98,344 @@
 
 <div class="container">
     <div class="header">
-        <div class="logo">💰 SPARKPOINT</div>
-        <div id="addrText" class="wallet-info hidden">...</div>
-        <button id="btnConnect" class="btn btn-main" onclick="connect()">Подключить кошелек</button>
+        <div class="logo"><span>💰</span> SPARKPOINT</div>
+        <div id="addrDisplay" class="wallet-addr hidden">Не подключен</div>
+        <button id="connBtn" class="btn btn-green" style="margin-top: 15px;" onclick="connect()">Подключить Кошелек</button>
     </div>
 
-    <div id="inviterBox" class="box hidden" style="text-align: center; font-size: 0.8rem;">
-        🤝 Вас пригласил: <br><span id="invAddr" style="color: var(--neon-green); word-break: break-all;"></span>
+    <div id="inviterBox" class="inviter-info hidden">
+        🤝 Вас пригласил:<br> <span id="invAddr" style="color: var(--neon-green); font-family: monospace;"></span>
     </div>
 
-    <div class="stats-row">
-        <div class="stat-box">
-            <div class="stat-label">🚀 Уровень</div>
-            <div id="statLvl" class="stat-value">-</div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">🚀 Уровень</span>
+            <div class="stat-value" id="valLvl">-</div>
         </div>
-        <div class="stat-box">
-            <div class="stat-label">💎 Баланс</div>
-            <div id="statBal" class="stat-value">0.00</div>
+        <div class="stat-card">
+            <span class="stat-label">💎 Внутр. Баланс</span>
+            <div class="stat-value" id="valBal">0.00</div>
         </div>
     </div>
 
-    <div class="matrix-card">
-        <div class="lvl-title"><span>УРОВЕНЬ 1</span> <span>2 МЕСТА</span></div>
-        <div id="row1" class="dots-grid"></div>
+    <div class="matrix-box">
+        <div class="lvl-header"><span class="lvl-name">УРОВЕНЬ 1</span><small>2 МЕСТА (Дети)</small></div>
+        <div id="row1" class="dots"></div>
 
-        <div class="lvl-title"><span>УРОВЕНЬ 2</span> <span>6 МЕСТ</span></div>
-        <div id="row2" class="dots-grid"></div>
+        <div class="lvl-header"><span class="lvl-name">УРОВЕНЬ 2</span><small>6 МЕСТ (Внуки)</small></div>
+        <div id="row2" class="dots"></div>
 
-        <div class="lvl-title"><span>УРОВЕНЬ 3</span> <span>14 МЕСТ</span></div>
-        <div id="row3" class="dots-grid"></div>
+        <div class="lvl-header"><span class="lvl-name">УРОВЕНЬ 3</span><small>14 МЕСТ (Правнуки)</small></div>
+        <div id="row3" class="dots"></div>
     </div>
 
-    <div id="areaReg" class="box hidden">
-        <div class="stat-label">Адрес пригласителя</div>
+    <div id="regArea" class="box hidden">
+        <label style="font-size: 0.8rem; color: #888;">АДРЕС ПРИГЛАСИТЕЛЯ</label>
         <input type="text" id="refInput" placeholder="0x...">
-        <button class="btn btn-main" onclick="register()">Активировать (0.001 BNB)</button>
+        <button class="btn btn-green" onclick="register()">Активировать Матрицу (0.001 BNB)</button>
     </div>
 
-    <div id="areaLink" class="box hidden">
-        <div class="stat-label">Ваша ссылка</div>
+    <div id="linkArea" class="box hidden">
+        <label style="font-size: 0.8rem; color: #888;">ВАША РЕФЕРАЛЬНАЯ ССЫЛКА</label>
         <input type="text" id="refLink" readonly>
-        <button class="btn btn-main" onclick="copyLink()">Копировать 🔗</button>
+        <button id="copyBtn" class="btn btn-green" onclick="copy()">Скопировать ссылку 🔗</button>
     </div>
 
-    <div id="areaAdmin" class="box admin-panel hidden">
-        <b style="color: var(--gold);">👑 АДМИН ПАНЕЛЬ</b>
-        <input type="text" id="admNewU" placeholder="Адрес нового юзера">
-        <input type="text" id="admNewR" placeholder="Адрес пригласителя">
+    <div id="adminPanel" class="box hidden" style="border-color: var(--gold);">
+        <b style="color: var(--gold);">👑 ПАНЕЛЬ АДМИНИСТРАТОРА</b>
+        <div style="margin: 10px 0; font-size: 0.9rem;">
+            Общий баланс контракта: <span id="adminSysBal" style="color: var(--neon-green); font-weight: bold;">0.00 BNB</span>
+        </div>
+        <input type="text" id="admU" placeholder="Адрес нового участника">
+        <input type="text" id="admR" placeholder="Адрес его пригласителя">
         <button class="btn" style="background: var(--gold); color: #000;" onclick="adminAdd()">Добавить бесплатно</button>
     </div>
 </div>
 
 <script>
-    const CONTRACT_ADDR = '0xd9145CCE52D386f254917e481eB44e9943F39138';
-    const ABI = [{"inputs":[{"internalType":"address","name":"_user","type":"address"},{"internalType":"address","name":"_referrer","type":"address"}],"name":"adminAddUser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_referrer","type":"address"}],"name":"register","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"level","type":"uint256"}],"name":"LevelUp","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":true,"internalType":"address","name":"referrer","type":"address"}],"name":"Registered","type":"event"},{"stateMutability":"payable","type":"receive"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"ENTRY_PRICE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"users","outputs":[{"internalType":"uint256","name":"level","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"},{"internalType":"uint256","name":"partnersCount","type":"uint256"},{"internalType":"uint256","name":"structureCount","type":"uint256"},{"internalType":"uint256","name":"internalBalance","type":"uint256"},{"internalType":"bool","name":"exists","type":"bool"}],"stateMutability":"view","type":"function"}];
+    const ADDR = '0xd9145CCE52D386f254917e481eB44e9943F39138'; 
+    const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_referrer",
+				"type": "address"
+			}
+		],
+		"name": "adminAddUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_referrer",
+				"type": "address"
+			}
+		],
+		"name": "register",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "level",
+				"type": "uint256"
+			}
+		],
+		"name": "LevelUp",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "referrer",
+				"type": "address"
+			}
+		],
+		"name": "Registered",
+		"type": "event"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ENTRY_PRICE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "users",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "level",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "referrer",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "partnersCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "structureCount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "internalBalance",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "exists",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
 
-    let web3, contract, currentUser;
+    let web3, contract, user;
 
-    // Отрисовка пустых кружков
-    function initDots() {
-        const draw = (id, n) => {
-            const el = document.getElementById(id);
-            el.innerHTML = '';
-            for(let i=0; i<n; i++) el.innerHTML += '<div class="dot"></div>';
-        };
-        draw('row1', 2); draw('row2', 6); draw('row3', 14);
+    function buildDots(id, n) { 
+        const r = document.getElementById(id); 
+        r.innerHTML = ''; 
+        for(let i=0; i<n; i++) r.innerHTML += '<div class="dot"></div>'; 
     }
-    initDots();
+    
+    buildDots('row1', 2); buildDots('row2', 6); buildDots('row3', 14);
 
     async function connect() {
-        if(!window.ethereum) return alert("Установи MetaMask!");
-        const accs = await window.ethereum.request({method: 'eth_requestAccounts'});
-        currentUser = accs[0];
-        web3 = new Web3(window.ethereum);
-        contract = new web3.eth.Contract(ABI, CONTRACT_ADDR);
-
-        document.getElementById('btnConnect').classList.add('hidden');
-        document.getElementById('addrText').classList.remove('hidden');
-        document.getElementById('addrText').innerText = currentUser;
-
-        await updateData();
+        if(!window.ethereum) return alert("Пожалуйста, установите MetaMask!");
+        try {
+            const accs = await window.ethereum.request({method: 'eth_requestAccounts'});
+            user = accs[0];
+            web3 = new Web3(window.ethereum);
+            contract = new web3.eth.Contract(ABI, ADDR);
+            
+            document.getElementById('connBtn').classList.add('hidden');
+            document.getElementById('addrDisplay').classList.remove('hidden');
+            document.getElementById('addrDisplay').innerText = user.substring(0,6) + '...' + user.substring(38);
+            
+            await update();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    async function updateData() {
-        try {
-            const userBox = await contract.methods.users(currentUser).call();
-            const adminAddr = await contract.methods.admin().call();
+    async function update() {
+        const data = await contract.methods.users(user).call();
+        const boss = await contract.methods.admin().call();
 
-            // Если ты админ — показываем панель сразу
-            if(currentUser.toLowerCase() === adminAddr.toLowerCase()) {
-                document.getElementById('areaAdmin').classList.remove('hidden');
+        if(user.toLowerCase() === boss.toLowerCase()) {
+            document.getElementById('adminPanel').classList.remove('hidden');
+            const balanceWei = await web3.eth.getBalance(ADDR);
+            document.getElementById('adminSysBal').innerText = web3.utils.fromWei(balanceWei, 'ether') + " BNB";
+        }
+
+        if(data.exists) {
+            document.getElementById('regArea').classList.add('hidden');
+            document.getElementById('linkArea').classList.remove('hidden');
+            document.getElementById('valLvl').innerText = data.level;
+            document.getElementById('valBal').innerText = web3.utils.fromWei(data.internalBalance, 'ether');
+            
+            if(data.referrer && data.referrer !== '0x0000000000000000000000000000000000000000') {
+                document.getElementById('inviterBox').classList.remove('hidden');
+                document.getElementById('invAddr').innerText = data.referrer;
             }
 
-            if(userBox.exists) {
-                document.getElementById('areaReg').classList.add('hidden');
-                document.getElementById('areaLink').classList.remove('hidden');
-                document.getElementById('statLvl').innerText = userBox.level;
-                document.getElementById('statBal').innerText = web3.utils.fromWei(userBox.internalBalance, 'ether');
-                
-                if(userBox.referrer !== '0x0000000000000000000000000000000000000000') {
-                    document.getElementById('inviterBox').classList.remove('hidden');
-                    document.getElementById('invAddr').innerText = userBox.referrer;
-                }
+            const dotsLvl1 = document.getElementById('row1').children;
+            const dotsLvl2 = document.getElementById('row2').children;
+            const dotsLvl3 = document.getElementById('row3').children;
+            
+            let partners = parseInt(data.partnersCount);
+            let structure = parseInt(data.structureCount);
+            let indirects = structure - partners;
 
-                // Зажигаем кружки
-                const p = parseInt(userBox.partnersCount);
-                const s = parseInt(userBox.structureCount);
-                const depth = s - p;
-
-                const dots1 = document.getElementById('row1').children;
-                for(let i=0; i<dots1.length; i++) if(i < p) dots1[i].classList.add('active');
-
-                const dots2 = document.getElementById('row2').children;
-                let l2 = Math.floor(depth / 2);
-                for(let i=0; i<dots2.length; i++) if(i < l2) dots2[i].classList.add('active');
-
-                const dots3 = document.getElementById('row3').children;
-                let l3 = Math.floor(depth / 6);
-                for(let i=0; i<dots3.length; i++) if(i < l3) dots3[i].classList.add('active');
-
-                document.getElementById('refLink').value = window.location.origin + window.location.pathname + "?ref=" + currentUser;
-            } else {
-                document.getElementById('areaReg').classList.remove('hidden');
-                document.getElementById('statLvl').innerText = "0";
+            for(let i=0; i < 2; i++) {
+                if(i < partners) dotsLvl1[i].classList.add('active');
+                else dotsLvl1[i].classList.remove('active');
             }
-        } catch(e) { console.error(e); }
+
+            let upgradedToL2 = Math.floor(indirects / 2); 
+            for(let i=0; i < 6; i++) {
+                if(i < upgradedToL2) dotsLvl2[i].classList.add('active');
+                else dotsLvl2[i].classList.remove('active');
+            }
+
+            let upgradedToL3 = Math.floor(indirects / 6);
+            for(let i=0; i < 14; i++) {
+                if(i < upgradedToL3) dotsLvl3[i].classList.add('active');
+                else dotsLvl3[i].classList.remove('active');
+            }
+
+            const link = window.location.origin + window.location.pathname + "?ref=" + user;
+            document.getElementById('refLink').value = link;
+
+            if(partners >= 2) {
+                const btn = document.getElementById('copyBtn');
+                btn.innerText = "❌ Лимит участников (2/2)";
+                btn.style.background = "#333";
+                btn.style.color = "#888";
+                btn.onclick = (e) => { 
+                    e.preventDefault(); 
+                    alert("Вы уже пригласили 2 участников."); 
+                };
+            }
+        } else {
+            document.getElementById('regArea').classList.remove('hidden');
+            const p = new URLSearchParams(window.location.search);
+            if(p.has('ref')) {
+                document.getElementById('refInput').value = p.get('ref');
+                document.getElementById('inviterBox').classList.remove('hidden');
+                document.getElementById('invAddr').innerText = p.get('ref');
+            }
+        }
     }
 
     async function register() {
-        const ref = document.getElementById('refInput').value || '0x0000000000000000000000000000000000000000';
+        const r = document.getElementById('refInput').value || '0x0000000000000000000000000000000000000000';
         try {
-            await contract.methods.register(ref).send({from: currentUser, value: web3.utils.toWei('0.001', 'ether')});
+            await contract.methods.register(r).send({from: user, value: web3.utils.toWei('0.001', 'ether')});
             location.reload();
-        } catch(e) { alert("Ошибка!"); }
+        } catch (e) {
+            alert("Ошибка транзакции.");
+        }
     }
 
     async function adminAdd() {
-        const u = document.getElementById('admNewU').value;
-        const r = document.getElementById('admNewR').value;
-        if(!u || !r) return alert("Введи адреса!");
         try {
-            await contract.methods.adminAddUser(u, r).send({from: currentUser});
-            alert("Успешно добавлен!");
+            await contract.methods.adminAddUser(document.getElementById('admU').value, document.getElementById('admR').value).send({from: user});
+            alert("Участник успешно добавлен!");
             location.reload();
-        } catch(e) { alert("Ошибка! Проверь права админа и газ."); }
+        } catch (e) {
+            alert("Ошибка при добавлении участника.");
+        }
     }
 
-    function copyLink() {
-        const copyText = document.getElementById("refLink");
-        copyText.select();
-        navigator.clipboard.writeText(copyText.value);
+    function copy() {
+        const t = document.getElementById("refLink"); 
+        t.select();
+        navigator.clipboard.writeText(t.value); 
         alert("Ссылка скопирована!");
     }
 
     window.onload = () => {
-        const params = new URLSearchParams(window.location.search);
-        if(params.has('ref')) {
-            document.getElementById('refInput').value = params.get('ref');
+        const p = new URLSearchParams(window.location.search);
+        if(p.has('ref')) {
+            document.getElementById('refInput').value = p.get('ref');
             document.getElementById('inviterBox').classList.remove('hidden');
-            document.getElementById('invAddr').innerText = params.get('ref');
+            document.getElementById('invAddr').innerText = p.get('ref');
         }
     };
 </script>
